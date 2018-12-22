@@ -314,6 +314,13 @@ header img{
 	background: none !important;
 	text-decoration: none;
 }
+.truth{
+	background-color: #000000;
+	color: #000000;
+}
+.truth:hover{
+	color: #FFFFFF;
+}
 
 @media screen and (max-width: 400px) {
 	.main{
