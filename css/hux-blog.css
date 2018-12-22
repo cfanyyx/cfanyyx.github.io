@@ -1647,6 +1647,13 @@ img::-moz-selection {
 .page-fullscreen footer .copyright a:hover {
   color: #ddd;
 }
+.truth{
+	background-color: #000000;
+	color: #000000;
+}
+.truth:hover{
+	color: #FFFFFF;
+}
 .MathJax_SVG_Display {
   overflow: auto;
   -webkit-overflow-scrolling: touch;

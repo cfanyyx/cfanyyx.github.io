@@ -1,6 +1,6 @@
 # Site settings
-title: cfanyyx Blog
-SEOTitle: 軒轅·嚴の博客 | cfanyyx Blog
+title: 軒轅阁
+SEOTitle: 軒轅阁 | 軒轅·嚴のblog
 header-img: img/home-bg.jpg
 email: cfanyyx@gmail.com
 description: "关于程序与设计、黑客与画家 | Mobile Lover，Software Engineer，UX Designer | 这里是軒轅·嚴的个人博客，与你一起发现更大的世界。"
@@ -14,9 +14,9 @@ future: true
 # SNS settings
 RSS: false
 weibo_username:     cfanyyx
-zhihu_username:     cfanyyx
+# zhihu_username:     cfanyyx
 github_username:    cfanyyx
-twitter_username:   cfanyyx
+# twitter_username:   cfanyyx
 # facebook_username:  cfanyyx
 # linkedin_username:  firstname-lastname-idxxxx
 
@@ -71,15 +71,15 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-# ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-# ga_domain: huangxuan.me
+ga_track_id: 'UA-131288207-1'            # Format: UA-xxxxxx-xx
+ga_domain: cfanyyx.xyz
 
 
 
 # Sidebar settings
-sidebar: false                           # whether or not using Sidebar.
-sidebar-about-description: "For the next quantum leap<br>离开世界之前，一切都是过程"
-sidebar-avatar: /img/avatar-hux-ny.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "生命这趟列车不管你愿不愿意<br>下一站就要到了"
+sidebar-avatar: /img/avatar-sidebar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -103,9 +103,6 @@ page-mathjax: false
 # Friends
 friends: [
     {
-    #     title: "Su",
-    #     href: "http://su.gallery/"
-    # },{
         title: "乱序",
         href: "http://mida.re/"
     },{
