@@ -323,10 +323,10 @@ header img{
 	background-color: #000000;
 	color: #000000;
 }
-.truth:hover{
-	color: #FFFFFF;
-}
-
+/* webkit, opera, IE9 */
+span.truth::selection { background-color: #fafafa; }
+/* mozilla firefox */
+span.truth::-moz-selection { background-color: #fafafa; }
 @media screen and (max-width: 400px) {
 	.main{
 		padding-bottom: 0px;

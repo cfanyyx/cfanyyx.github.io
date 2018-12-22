@@ -1651,9 +1651,10 @@ img::-moz-selection {
 	background-color: #000000;
 	color: #000000;
 }
-.truth:hover{
-	color: #FFFFFF;
-}
+/* webkit, opera, IE9 */
+span.truth::selection { background-color: #fafafa; }
+/* mozilla firefox */
+span.truth::-moz-selection { background-color: #fafafa; }
 .MathJax_SVG_Display {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
