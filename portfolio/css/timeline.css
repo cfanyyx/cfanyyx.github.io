@@ -187,8 +187,8 @@ body, html {
 .navbar-custom .nav li a,
 .navbar-custom .nav li a:hover,
 .navbar-custom .navbar-brand,
-.navbar-custom .navbar-brand:hover {color:#777;}
-.navbar-default .navbar-toggle .icon-bar {background-color:#777;}
+.navbar-custom .navbar-brand:hover {color:#fff;}
+.navbar-default .navbar-toggle .icon-bar {background-color:#fff;}
 
 html{
 	font-size: 90%;
@@ -204,6 +204,9 @@ header{
 	position: relative;
 	border-bottom: 1px solid #edeeee;
     background-image: url(../images/post-bg-2015.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
 }
 header h1 {
     font-size: 70px;
@@ -211,6 +214,7 @@ header h1 {
     margin-top: 26px;
     margin-bottom: 10px;
     line-height: 1;
+    color:#fff;
 }
 header p{
 	text-align: center;
