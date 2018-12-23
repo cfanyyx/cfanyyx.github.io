@@ -187,8 +187,6 @@ body, html {
 /******* Hux Branch *****/
 
 /* navbar - dark mode */
-.navbar-custom .nav li a,
-.navbar-custom .nav li a:hover,
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-brand:hover {color:#fff;}
 .navbar-default .navbar-toggle .icon-bar {background-color:#fff;}
