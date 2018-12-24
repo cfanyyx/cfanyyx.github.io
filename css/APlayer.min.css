@@ -82,7 +82,7 @@
 	display:block;
 	position:fixed;
 	bottom:10px;
-	left:0;
+	left:85px;
 	right:0;
 	margin:0;
 	z-index:98;
@@ -317,7 +317,6 @@
 }
 .aplayer .aplayer-lrc{
 	display:none;position:relative;height:30px;text-align:center;overflow:hidden;margin:-10px 0 7px;
-	transform: translate(8%,0);-webkit-transform: translate(8%,0);width: 92.5%;
 }
 .aplayer .aplayer-lrc:before{
 	top:0;height:10%;background:linear-gradient(180deg,#fff 0,hsla(0,0%,100%,0));
