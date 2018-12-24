@@ -5,14 +5,18 @@
 
 {% if include.type == 'post' %}
 <style type="text/css">
-    header.intro-header{
+    body, html {
+        overflow:hidden;
+        overflow-y:auto;
+    }
+    header.intro-header {
         position: relative;
         background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}');
         background: {{ page.header-bg-css }};
     }
 
     {% if page.header-mask %}
-    header.intro-header .header-mask{
+    header.intro-header .header-mask {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -24,6 +28,41 @@
 <header class="intro-header style-text" >
 {% else %}
 <header class="intro-header" >
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<script>
+		function snow() {
+			//1、定义一片雪花模板
+			var flake = $("<div>").css({
+				"position": "absolute",
+				"color": "#fff"
+			}).html("❄");
+			var documentWidth = $("header").width();
+			var documentHieght = $(document).height() * 0.15;
+			var millisec = 500;
+			setInterval(function() {
+				var startLeft = Math.random() * documentWidth;
+				var endLeft = Math.random() * documentWidth;
+				var flakeSize = 5 + 20 * Math.random();
+				var durationTime = 4000 + 7000 * Math.random();
+				var startOpacity = 0.7 + 0.3 * Math.random();
+				var endOpacity = 0.2 + 0.2 * Math.random();
+				var endHeight = documentHieght + 500 * Math.random();
+				flake.clone().appendTo($("header")).css({
+					"left": startLeft,
+					"opacity": startOpacity,
+					"font-size": flakeSize,
+					"top": "-25px",
+				}).animate({
+					"left": endLeft,
+					"opacity": endOpacity,
+					"top": endHeight
+				}, durationTime, function() {
+					$(this).remove();
+				});
+			}, millisec);
+		};
+		snow();
+	</script>
 {% endif %}
     <div class="header-mask"></div>
     {% if page.header-img-credit %}
