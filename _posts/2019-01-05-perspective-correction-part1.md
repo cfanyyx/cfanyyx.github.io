@@ -24,11 +24,11 @@ tags:
 
 这里用这些控件元素要注意的点有如下一些，好久没写Android界面的我也是遇坑无数：
 
-#### 1. 屏幕旋转之后，要防止Activity的资源被销毁
+##### 1. 屏幕旋转之后，要防止Activity的资源被销毁
 
 > 这里使用的是将公共元素放到Application类中以防止丢失的办法解决的
 
-#### 2. “选择图像”调用的逻辑，这里包括了存储权限的获取、获得回调返回的图像数据、获得图像数据后图像发生旋转的问题
+##### 2. “选择图像”调用的逻辑，这里包括了存储权限的获取、获得回调返回的图像数据、获得图像数据后图像发生旋转的问题
 
 > 下面来逐一说明一下以上几个要点，首先关于存储权限的获取，说到权限自然要在manifest里面加上以下二货：
 > ```xml
@@ -94,16 +94,16 @@ tags:
 > }
 > ```
 
-#### 3. “选择图像”，“对比”，以及图像处理的相关操作如果使用不当会导致ImageView显示的图像错乱，所以要准备好几个图像的对象分别进行各个状态下图像的存储
+##### 3. “选择图像”，“对比”，以及图像处理的相关操作如果使用不当会导致ImageView显示的图像错乱，所以要准备好几个图像的对象分别进行各个状态下图像的存储
 
 > 这里我使用了三个Bitmap对象对图像进行分状态的存取，它们分别是：
 > result保存最终的结果；
 > loadedPic保存原始图像用以“对比”；
 > processingPic保存处理中的图像，用以在不同的图像处理状态间切换；
 
-#### 4. 之所以使用两个ImageView是因为另外一个ImageView需要显示透视矫正过程中的半透明参考线
+##### 4. 之所以使用两个ImageView是因为另外一个ImageView需要显示透视矫正过程中的半透明参考线
 
-#### 5. SeekBar的UI配置也是错综复杂，很麻烦，我用了一个Animation来做刻度的显示
+##### 5. SeekBar的UI配置也是错综复杂，很麻烦，我用了一个Animation来做刻度的显示
 
 > 但是还有个Bug没有解决，就是我的刻度显示动画效果是用透明度实现的，现在的问题是如果在上一个动画没有执行完的情况下，马上调整SeekBar就会导致刻度的那个控件透明度直接干到0，无法显示了，只有当动画的时间过掉之后才能恢复正常，在setOnSeekBarChangeListener的三个重载方法里面周旋了好久还是没有解决这个问题，闹心，回头再看吧
 
@@ -117,8 +117,8 @@ javah -class Android_sdk_path/sdk/platforms/(version)/android.jar -d output_h_fi
 
 然后要注意的就是关于透视的实现，透视的实现，之前是使用了传图像数组的方式，后来使用OpenCV透视变换出来的图会呈现雪花状，这里怀疑是图像通道的问题，后来改成传图像内存地址的方式进行操作，就正常了，从内存读图像的代码如下：
 
-```c
-# get image content from mem
+```cpp
+// get image content from mem
 AndroidBitmapInfo inBmpInfo, outBmpInfo;
 void* inPixelsAddress;
 void* outPixelsAddress;
@@ -144,17 +144,16 @@ Mat outMat(outBmpInfo.height, outBmpInfo.width, CV_8UC4, outPixelsAddress);
 int w = inBmpInfo.width;
 int h = inBmpInfo.height;
 
-# after processing, you need unlock the mem content
+// after processing, you need unlock the mem content
 AndroidBitmap_unlockPixels(env, bmpIn);
 AndroidBitmap_unlockPixels(env, bmpOut);
 ```
 
 具体的透视变换代码如下：
 
-```c
+```cpp
 // max angle == 20, 50 / 20 == 2.5
 float angle = abs(progress) / 2.5;
-
 cv::Point2f src_points[] = {
 	cv::Point2f(0, 0),
 	cv::Point2f(w, 0),
@@ -207,7 +206,6 @@ for (int i = 0; i < 3; i ++) {
 		LOGE("m[%d][%d] = %d", i, j, M.data[3 * i + j] - '0');
 	}
 }
-
 cv::warpPerspective(inMat, outMat, M, outMat.size(), cv::INTER_LINEAR);
 ···
 
@@ -215,12 +213,12 @@ cv::warpPerspective(inMat, outMat, M, outMat.size(), cv::INTER_LINEAR);
 
 哦对了，还有在JNI里面打Log的问题，首先需要在Android.mk里加上LOCAL_LDLIBS += -llog，然后需要在cpp文件里面引入#include <android/log.h>，最后可以定义一些宏方便打log：
 
-```c
+```cpp
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
-# log example
+// log example
 LOGE("m[%d][%d] = %d", i, j, M.data[3 * i + j] - '0');
 ```
 
-*The End*
+*-The End-*
