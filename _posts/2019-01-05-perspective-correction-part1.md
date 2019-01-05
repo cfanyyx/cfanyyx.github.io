@@ -207,7 +207,7 @@ for (int i = 0; i < 3; i ++) {
 	}
 }
 cv::warpPerspective(inMat, outMat, M, outMat.size(), cv::INTER_LINEAR);
-···
+```
 
 关于基本的透视变换就是这么多了，貌似在load OpenCV库的时候还有时延问题，因为如果进入app操作透视变换的命令太快app就会crash，后续再跟一下看具体是什么问题导致的，下次写写自动透视矫正的内容。
 
