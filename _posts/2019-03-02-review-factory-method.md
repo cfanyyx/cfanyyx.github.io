@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "跟着Distiller复习工厂模式"
-subtitle: 'Fellow Distiller, and you will konw what is factory-method'
+subtitle: 'Follow Distiller, and you will konw what is factory-method'
 author: "cfanyyx"
 header-style: text
 tags:
