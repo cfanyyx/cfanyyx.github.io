@@ -68,7 +68,7 @@ policies:
     epochs: [2]
 ```
 
-然后在代码里面，使用了OrderedDict去load这个YAML文件，详细方法参考了[stackoverflow上的一个question](https://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts) 。于是我们就可以拿到一个OrderedDict对象。后面就会通过工厂模式解析这个OrderedDict对象。
+然后在代码里面，使用了OrderedDict去load这个YAML文件，详细方法参考了[stackoverflow上的一个question](https://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts)。于是我们就可以拿到一个OrderedDict对象。后面就会通过工厂模式解析这个OrderedDict对象。
 
 ## 三.工厂模式
 
@@ -120,7 +120,7 @@ def obj_dic(d):
 >>> opt_class = obj_dic(dict_obj)
 ```
 
-然后在python中使用工厂模式的好处是，我们根本不用去手动写构造工厂和“产品”的方法，甚至抽象工厂的代码也不用写了，一样可以很轻松添加新的“产品”，你只要事先实现好相应的工厂以及“产品”类文件，确定好它们的层次（fu zi）关系就可以直接用上述的global()方法去造“产品”了，其实上述过程很像反射有木有，或者说它就是反射吧。
+- 然后在python中使用工厂模式的好处是，我们根本不用去手动写构造工厂和“产品”的方法，甚至抽象工厂的代码也不用写了，一样可以很轻松添加新的“产品”，你只要事先实现好相应的工厂以及“产品”类文件，确定好它们的层次（fu zi）关系就可以直接用上述的global()方法去造“产品”了，其实上述过程很像反射有木有，或者说它就是反射吧。
 
 举栗如下，比如一个YAML文件中会有很多模型压缩操作，那么我们会通过反射的方法构建这些“产品”，构建过程用到的参数会从YAML文件的前半段对不同“产品”的描述中获得，这里的“产品”就是pruner啊，regularizer啊，quantizer啊这种东西：
 
@@ -159,7 +159,7 @@ def __factory(container_type, model, sched_dict, **kwargs):
     return container
 ```
 
-构建完模型压缩的“产品”之后，会继续通过YAML配置文件中的“policies”部分，构建相应的policy，在这个过程中，会check这里所使用的policy是否在模型前半段列举的模型压缩“产品”中出现过。如果出现过那么配置相应的policy对象，并将其添加到scheduler中，完成所有的构建过程。大致过程如下：
+- 构建完模型压缩的“产品”之后，会继续通过YAML配置文件中的“policies”部分，构建相应的policy，在这个过程中，会check这里所使用的policy是否在模型前半段列举的模型压缩“产品”中出现过。如果出现过那么配置相应的policy对象，并将其添加到scheduler中，完成所有的构建过程。大致过程如下：
 
 ```python
 if scheduler is None:
@@ -231,7 +231,7 @@ except Exception as exception:
 return scheduler
 ```
 
-之后在distiller做模型压缩的时候就可以在训练的各个阶段通过sceduler调用相应的policy对象，再由policy对象去实际操作模型压缩“产品”从而实现真正的模型压缩过程了。
+- 之后在distiller做模型压缩的时候就可以在训练的各个阶段通过sceduler调用相应的policy对象，再由policy对象去实际操作模型压缩“产品”从而实现真正的模型压缩过程了。
 
 好了，这篇文章就到这里，一堆事啊一堆事，接踵而至。
 
