@@ -14,7 +14,7 @@ tags:
 
 最近研究量化的时候有关注到tflite，于是尝试将模型转换成tflite模型然后丢到c++里跑，其中遇坑无数，首先在[tflite官方的文档](https://www.tensorflow.org/lite/performance/model_optimization)中指出有两种做量化的方式，其一是Post-training quantization，其二是Quantization-aware training，然后官方文档就轻描淡写地通过放置各种链接把我彻底给搞晕了，然后在各种github上及各种角落里面找到[Post-training quantization只针对arm架构的cpu有效](https://github.com/tensorflow/tensorflow/issues/21698)，Quantization-aware training则只适用于部分网络结构。
 
-![20190105_ui](/img/in-post/20190105/20190105_ui.jpg)
+![20190306_quantization-aware](/img/in-post/20190306/20190306_quantization-aware.jpg)
 
 但是但是，我还是手动跑了一遍流程，这里以Post-training quantization为例做一下介绍吧，首先想要获得tflite模型，那么我们先得有一个pretrained模型，假设我们已经有了这样一个模型，那么接下来为了得到tflite模型，你要有pb模型，如果pb模型不是现成的，你只有ckpt文件，那么你需要先从ckpt文件里面把pretrained的变量全部取出以重新保存pb模型文件，在这个过程中为了方便以后调用tflite做预测，你需要先留好输入节点以及输出节点，然后比如你转成pb模型之后，就可以很方便地通过预留的节点进行预测，就像下面这样：
 
