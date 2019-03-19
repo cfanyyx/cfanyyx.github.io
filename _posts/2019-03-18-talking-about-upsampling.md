@@ -10,11 +10,11 @@ tags:
 
 ## 一. 背景
 
-超分，GAN，这些神经网络或多或少都会涉及到上采样的步骤，也就是upsampling，最近也在看相关的资料，发现有一个总结得还比较好，就是[Super-Resolution](https://wiki.tum.de/display/lfdv/Super-Resolution)这篇文章，其主要概括了当前在做超分的一些方法，包括传统及深度方法，以及它们的对比。其中就会涉及到upsampling的过程。传统的方法就是你会在opencv，PIL的API中看到的什么https://wiki.tum.de/display/lfdv/Super-Resolution以及各种线性插值的方式去做的，深度的方法就会涉及到反卷积，反池化这种操作。文中也提到了一些衡量超分的指标，但是这些指标也就是个数值，真正看图片的质量感觉还是要用人肉眼来看比较靠谱。最后逛知乎，发现一篇宝藏文章，[从SRCNN到EDSR，总结深度学习端到端超分辨率方法发展历程](https://zhuanlan.zhihu.com/p/31664818)这篇文章全面总结了超分的发展历程，还给出了所有的文章及代码的链接。
+超分，GAN，这些神经网络或多或少都会涉及到上采样的步骤，也就是upsampling，最近也在看相关的资料，发现有一个总结得还比较好，就是[Super-Resolution](https://wiki.tum.de/display/lfdv/Super-Resolution)这篇文章，其主要概括了当前在做超分的一些方法，包括传统和深度的方法，以及它们的对比。这其中就会涉及到upsampling的过程。传统的方法往往是在opencv，PIL的API中可以看到的什么NearestNeighbor以及各种线性插值，深度的方法就会涉及到反卷积，反池化这些操作。文中也提到了一些衡量超分结果的指标，但是这些指标也就是个数值，真正看图片的质量感觉还是要用人肉眼来看比较靠谱。最后逛知乎，发现一篇宝藏文章[从SRCNN到EDSR，总结深度学习端到端超分辨率方法发展历程](https://zhuanlan.zhihu.com/p/31664818)，这篇文章全面总结了超分深度做法的发展历程，还给出了所有的文章及代码的链接。
 
 ## 二. 各种upsampling
 
-看了这么多超分的文章，总结下来upsampling无非就是以下几种吧。
+看了这么多超分的文章，总结下来upsampling无非就是以下几种吧：
 
 ### 1.首先就是unpooling
 通常用unpooling来逆向一些pooling的操作，比如记住max pooling时取max的位置（switch variables），然后用unpooling进行还原。
