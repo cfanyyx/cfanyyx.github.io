@@ -54,4 +54,16 @@ def PS(X, r, color=False):
     return X
 ```
 
+其实在pytorch的代码里面已经有现成的API可以调用了，具体可参考[这个链接](https://blog.csdn.net/gdymind/article/details/82388068)。
+
+### 5.Convolutional Sparse Coding
+其实严格意义上来说Sparse Coding是它的前辈，Sparse Coding的思想是说通过学习一个字典matrix D，将一幅图片能够通过D*a来进行最大程度的还原，而通过这一思想，可以将任何低清与高清的图片对转化为低清与高清的两个字典matrix D，并认为任何一个低清与高清的图片组都可以用同一个a来进行表示。
+
+而由其衍生出来的Convolutional Sparse Coding，分为training phase和testing phase，其中training phase需要学习到3组参数，一是低清filters，二是低清feature maps到高清feature maps的映射关系，三是高清的filters。然后在testing phase，低清的图片首先会被低清filters解构成Sparse低清feature maps，之后通过低清feature maps到高清feature maps的映射关系将低清feature maps转换成高清feature maps，最后通过高清的filters重构高清图。然后具体的过程比较复杂，可以参考这篇论文->[Convolutional Sparse Coding for Image Super-resolution](http://openaccess.thecvf.com/content_iccv_2015/papers/Gu_Convolutional_Sparse_Coding_ICCV_2015_paper.pdf)。
+
+
+### 6.Total Variation Loss
+这个tv loss并不能算作是upsampling的方法，而只能算作upsampling过程中的一个小trick，这个loss可以让生成的结果更加平滑，其实就像是加了一个滤波，把图磨平了吧就这样理解，它的代码也是到处都能找到了。TF里面已经有人提了request，所以已经有官方[Total Variation代码](https://www.tensorflow.org/api_docs/python/tf/image/total_variation)了。而pytorch的话，贴一个github吧->[这里](https://github.com/jxgu1016/Total_Variation_Loss.pytorch)。
+
+
 *-The End-*
