@@ -70,17 +70,17 @@ open(tflite_model_path, "wb").write(tflite_quantized_model)
 
 如果正常的话，你应该得到如下类似的结果，以及tflite模型系列文件：
 
-> INFO:tensorflow:Restoring parameters from .../save/variables/variables
-> INFO:tensorflow:The given SavedModel MetaGraphDef contains SignatureDefs with the following keys: {'serving_default'}
-> INFO:tensorflow:input tensors info: 
-> INFO:tensorflow:Tensor's key in saved_model's tensor_map: input_pl
-> INFO:tensorflow: tensor name: input_pl:0, shape: (1024, 1024, 3), type: DT_UINT8
-> INFO:tensorflow:output tensors info: 
-> INFO:tensorflow:Tensor's key in saved_model's tensor_map: final_output
-> INFO:tensorflow: tensor name: convert_outputs/final_output:0, shape: (1, 1024, 1024, 3), type: DT_UINT8
-> INFO:tensorflow:Restoring parameters from .../save/variables/variables
-> INFO:tensorflow:Froze 76 variables.
-> INFO:tensorflow:Converted 76 variables to const ops.
+> INFO:tensorflow:Restoring parameters from .../save/variables/variables  
+> INFO:tensorflow:The given SavedModel MetaGraphDef contains SignatureDefs with the following keys: {'serving_default'}  
+> INFO:tensorflow:input tensors info:  
+> INFO:tensorflow:Tensor's key in saved_model's tensor_map: input_pl  
+> INFO:tensorflow: tensor name: input_pl:0, shape: (1024, 1024, 3), type: DT_UINT8  
+> INFO:tensorflow:output tensors info:  
+> INFO:tensorflow:Tensor's key in saved_model's tensor_map: final_output  
+> INFO:tensorflow: tensor name: convert_outputs/final_output:0, shape: (1, 1024, 1024, 3), type: DT_UINT8  
+> INFO:tensorflow:Restoring parameters from .../save/variables/variables  
+> INFO:tensorflow:Froze 76 variables.  
+> INFO:tensorflow:Converted 76 variables to const ops.  
 
 然后你还可以用官方介绍的方法使用python-api进行验证（然鹅我失败了并且获得了一个没有任何信息的segmentation fault）:
 
@@ -282,6 +282,12 @@ set_property(TARGET libtorch_test PROPERTY CMAKE_CXX_STANDARD 14)
 注意在编译的时候要加上libtorch的位置：
 
 > cmake -DCMAKE_PREFIX_PATH=/path/to/libtorch/ ..
+
+## 三. 一点补充：gpu卡号的问题
+
+在使用libtorch的时候遇到一个问题，就是使用pytorch通过jit在使用libtorch的时候遇到一个问题，就是使用pytorch通过jit tracing方式导出的模型会默认绑定tracing的时候使用的gpu卡号，比如在tracing的时候如果使用的gpu 0号卡导出的模型，那么在默认情况下从libtorch导入的模型也是会默认使用gpu 0号卡，如果使用了别的卡号的卡就会报不一致的错误出来，一直被这个问题困扰，觉得pytorch出这种问题也太傻叉了。
+
+巧的是，前两天无意中翻文档，突然发现torch.load的时候有个参数可以变换gpu卡号的绑定问题，那么torch.jit.load是不是也有呢，查了一下，果然有，那么这个参数应该就可以解决这个问题吧，还没试，但感觉是可以的。
 
 最后我继续去调其它bug了...
 
